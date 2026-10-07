@@ -1,16 +1,49 @@
-# React + Vite
+# OrderNow Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+OrderNow is a modern e-commerce frontend built with React and Vite.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- User registration and login
+- JWT authentication
+- Product browsing
+- Add products to cart
+- Remove products from cart
+- Dynamic cart and checkout
+- Order creation
+- Mock payment processing
+- Order history and status
+- Customer notifications
+- Mark notifications as read
+- Responsive and clean e-commerce interface
 
-## React Compiler
+## Technology Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React
+- Vite
+- React Router
+- Axios
+- JavaScript
+- CSS / Inline React Styling
 
-## Expanding the Oxlint configuration
+## Backend Integration
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+The frontend communicates with the FastAPI backend running at:
+
+`http://127.0.0.1:8000`
+
+Main API modules:
+
+- Authentication
+- Products
+- Cart
+- Orders
+- Payments
+- Notifications
+
+## Run the Frontend
+
+Install dependencies:
+
+```bash
+npm install
