@@ -12,3 +12,4 @@ django-pbkdf2-sha256
 stripe
 reportlab
 websockets
+httpx
