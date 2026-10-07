@@ -1,0 +1,125 @@
+{% extends "admin/base_site.html" %}
+
+{% block title %}Analytics Dashboard{% endblock %}
+
+{% block content %}
+
+<h1>Smart E-Commerce Analytics</h1>
+
+<div style="display:flex; gap:20px; flex-wrap:wrap; margin:20px 0;">
+
+    <div style="padding:20px; background:#f5f5f5; min-width:180px;">
+        <h3>Total Sales</h3>
+        <h2>₹{{ total_sales }}</h2>
+    </div>
+
+    <div style="padding:20px; background:#f5f5f5; min-width:180px;">
+        <h3>Total Orders</h3>
+        <h2>{{ total_orders }}</h2>
+    </div>
+
+    <div style="padding:20px; background:#f5f5f5; min-width:180px;">
+        <h3>Paid Orders</h3>
+        <h2>{{ paid_orders }}</h2>
+    </div>
+
+    <div style="padding:20px; background:#f5f5f5; min-width:180px;">
+        <h3>Low Stock</h3>
+        <h2>{{ low_stock_count }}</h2>
+    </div>
+
+</div>
+
+<h2>Top-Selling Products</h2>
+
+<table style="width:100%; border-collapse:collapse; margin-bottom:30px;">
+    <thead>
+        <tr>
+            <th style="text-align:left; padding:8px;">Product</th>
+            <th style="text-align:left; padding:8px;">Quantity Sold</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for product in top_products %}
+        <tr>
+            <td style="padding:8px;">
+                {{ product.product__name }}
+            </td>
+            <td style="padding:8px;">
+                {{ product.quantity_sold }}
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="2" style="padding:8px;">
+                No sales data available.
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h2>Revenue Trend</h2>
+
+<canvas
+    id="revenueChart"
+    style="max-width:900px; max-height:400px;"
+></canvas>
+
+<h2 style="margin-top:40px;">Low Stock Products</h2>
+
+<table style="width:100%; border-collapse:collapse;">
+    <thead>
+        <tr>
+            <th style="text-align:left; padding:8px;">Product</th>
+            <th style="text-align:left; padding:8px;">Stock</th>
+            <th style="text-align:left; padding:8px;">Category</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for product in low_stock_products %}
+        <tr>
+            <td style="padding:8px;">{{ product.name }}</td>
+            <td style="padding:8px;">{{ product.stock }}</td>
+            <td style="padding:8px;">{{ product.category }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="3" style="padding:8px;">
+                No low-stock products.
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+const revenueLabels = {{ revenue_labels|safe }};
+const revenueValues = {{ revenue_values|safe }};
+
+new Chart(document.getElementById("revenueChart"), {
+    type: "line",
+    data: {
+        labels: revenueLabels,
+        datasets: [{
+            label: "Revenue",
+            data: revenueValues,
+            tension: 0.3
+        }]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+</script>
+
+{% endblock %}
